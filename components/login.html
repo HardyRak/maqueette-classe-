@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classe+ - Maquettes Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .title {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .mockups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .mockup {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .mockup:hover {
+            transform: translateY(-10px);
+        }
+        
+        .mockup-title {
+            text-align: center;
+            color: #2d3748;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        /* Page Login Principale */
+        .login-page {
+            max-width: 420px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(5, 150, 105, 0.03) 50%, transparent 70%);
+            transform: rotate(-45deg);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .login-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .login-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.25);
+        }
+        
+        .login-logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #047857;
+        }
+        
+        .login-subtitle {
+            color: #64748b;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #059669;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.25);
+            margin-bottom: 20px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(5, 150, 105, 0.35);
+        }
+        
+        .forgot-password {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .forgot-password:hover {
+            color: #059669;
+        }
+        
+        /* Page Sélection École */
+        .school-selection {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .selection-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .selection-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .selection-subtitle {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+        
+        .schools-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .school-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .school-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #059669 0%, #047857 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .school-card:hover {
+            border-color: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(5, 150, 105, 0.15);
+        }
+        
+        .school-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .school-card.selected {
+            border-color: #059669;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+        }
+        
+        .school-card.selected::before {
+            transform: scaleX(1);
+        }
+        
+        .school-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .school-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .school-details {
+            flex: 1;
+        }
+        
+        .school-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+        
+        .school-role {
+            display: inline-block;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .school-address {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .check-icon {
+            color: #059669;
+            font-size: 1.3rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .school-card.selected .check-icon {
+            opacity: 1;
+        }
+        
+        /* États d'erreur */
+        .error-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .error-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .error-message {
+            color: #6b7280;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+        
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-left-color: #059669;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mockups-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-page, .school-selection {
+                margin: 0;
+                padding: 30px 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Classe+ - Maquettes Login 🎯</h1>
+        
+        <div class="mockups-grid">
+            <!-- Page Login Principale -->
+            <div class="mockup">
+                <div class="mockup-title">1. Page Login Principale</div>
+                
+                <div class="login-page">
+                    <div class="login-header">
+                        <div class="login-logo">
+                            <div class="login-logo-icon">C+</div>
+                            <div class="login-logo-text">CLASSE+</div>
+                        </div>
+                        <div class="login-subtitle">Connectez-vous à votre espace</div>
+                    </div>
+                    
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Adresse email</label>
+                            <div style="position: relative;">
+                                <input type="email" class="form-input" placeholder="votre@email.com">
+                                <span class="input-icon">📧</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Mot de passe</label>
+                            <div style="position: relative;">
+                                <input type="password" class="form-input" placeholder="••••••••">
+                                <span class="input-icon">🔒</span>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">
+                            Se connecter
+                        </button>
+                        
+                        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Page Sélection École -->
+            <div class="mockup">
+                <div class="mockup-title">2. Sélection École (Multi-écoles)</div>
+                
+                <div class="school-selection">
+                    <div class="selection-header">
+                        <div class="selection-title">Choisissez votre établissement</div>
+                        <div class="selection-subtitle">Sélectionnez l'école où vous souhaitez accéder</div>
+                    </div>
+                    
+                    <div class="schools-grid">
+                        <div class="school-card selected">
+                            <div class="school-info">
+                                <div class="school-avatar">🏫</div>
+                                <div class="school-details">
+                                    <div class="school-name">École Primaire Saint-Jean</div>
+                                    <div class="school-role">Enseignant</div>
+                                    <div class="school-address">123 Rue de la Paix, Paris 15e</div>
+                                </div>
+                                <div class="check-icon">✓</div>
+                            </div>
+                        </div>
+                        
+                        <div class="school-card">
+                            <div class="school-info">
+                                <div class="school-avatar" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">🎓</div>
+                                <div class="school-details">
+                                    <div class="school-name">Lycée Excellence</div>
+                                    <div class="school-role">Directeur</div>
+                                    <div class="school-address">456 Avenue des Champs, Lyon 3e</div>
+                                </div>
+                                <div class="check-icon">✓</div>
+                            </div>
+                        </div>
+                        
+                        <div class="school-card">
+                            <div class="school-info">
+                                <div class="school-avatar" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">📚</div>
+                                <div class="school-details">
+                                    <div class="school-name">Collège Liberté</div>
+                                    <div class="school-role">Administrateur</div>
+                                    <div class="school-address">789 Boulevard République, Marseille 1er</div>
+                                </div>
+                                <div class="check-icon">✓</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary">
+                        Continuer vers l'école sélectionnée
+                    </button>
+                </div>
+            </div>
+            
+            <!-- État Loading -->
+            <div class="mockup">
+                <div class="mockup-title">3. État Loading</div>
+                
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Connexion en cours...</div>
+                </div>
+            </div>
+            
+            <!-- État d'Erreur -->
+            <div class="mockup">
+                <div class="mockup-title">4. États d'Erreur</div>
+                
+                <div class="error-state">
+                    <div class="error-icon">⚠️</div>
+                    <div class="error-title">Accès modifié</div>
+                    <div class="error-message">
+                        Vos accès ont été modifiés par l'administration.<br>
+                        Veuillez contacter votre établissement pour plus d'informations.
+                    </div>
+                    <button class="btn-secondary">Retour à la connexion</button>
+                </div>
+                
+                <hr style="margin: 30px 0; border: 1px solid #e5e7eb;">
+                
+                <div class="error-state">
+                    <div class="error-icon">🔒</div>
+                    <div class="error-title">Identifiants incorrects</div>
+                    <div class="error-message">
+                        L'adresse email ou le mot de passe est incorrect.<br>
+                        Veuillez vérifier vos informations.
+                    </div>
+                    <button class="btn-secondary">Réessayer</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notes Design -->
+        <div style="background: white; border-radius: 20px; padding: 40px; margin-top: 30px;">
+            <h3 style="color: #047857; margin-bottom: 20px; font-size: 1.4rem;">🎨 Notes de Design</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: #f0fdf4; padding: 20px; border-radius: 10px; border-left: 4px solid #059669;">
+                    <h4 style="color: #047857; margin-bottom: 10px;">Couleurs Principales</h4>
+                    <ul style="color: #374151; font-size: 0.9rem;">
+                        <li><strong>Vert Primary:</strong> #059669</li>
+                        <li><strong>Vert Dark:</strong> #047857</li>
+                        <li><strong>Arrière-plan:</strong> Gradient violet-bleu</li>
+                        <li><strong>Cards:</strong> Blanc pur avec ombres</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f0fdf4; padding: 20px; border-radius: 10px; border-left: 4px solid #059669;">
+                    <h4 style="color: #047857; margin-bottom: 10px;">Interactions</h4>
+                    <ul style="color: #374151; font-size: 0.9rem;">
+                        <li>Hover effects avec élévation</li>
+                        <li>Focus states avec border colorées</li>
+                        <li>Transitions fluides (0.3s ease)</li>
+                        <li>Loading states informatifs</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f0fdf4; padding: 20px; border-radius: 10px; border-left: 4px solid #059669;">
+                    <h4 style="color: #047857; margin-bottom: 10px;">Responsive</h4>
+                    <ul style="color: #374151; font-size: 0.9rem;">
+                        <li>Mobile-first approach</li>
+                        <li>Cards adaptatifs</li>
+                        <li>Espacement optimisé</li>
+                        <li>Boutons touch-friendly</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #f0fdf4; padding: 20px; border-radius: 10px; border-left: 4px solid #059669;">
+                    <h4 style="color: #047857; margin-bottom: 10px;">Accessibilité</h4>
+                    <ul style="color: #374151; font-size: 0.9rem;">
+                        <li>Contraste WCAG AA</li>
+                        <li>Focus indicators clairs</li>
+                        <li>Labels explicites</li>
+                        <li>Erreurs contextuelles</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

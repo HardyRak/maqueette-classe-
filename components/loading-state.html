@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoadingState - Maquette</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            color: #047857;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Design Tokens */
+        :root {
+            --primary-green: #059669;
+            --primary-green-dark: #047857;
+            --white: #ffffff;
+            --gray-100: #f8fafc;
+            --gray-200: #e5e7eb;
+            --gray-400: #9ca3af;
+            --gray-500: #64748b;
+            --gray-700: #374151;
+            --gray-900: #111827;
+        }
+
+        /* Loading State Base */
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .loading-state.overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+        }
+
+        .loading-state.inline {
+            padding: 60px 20px;
+        }
+
+        .loading-state.center {
+            min-height: 300px;
+        }
+
+        /* Spinner Styles */
+        .spinner {
+            border-radius: 50%;
+            border-style: solid;
+            animation: spin 1s linear infinite;
+        }
+
+        .spinner.small {
+            width: 20px;
+            height: 20px;
+            border-width: 2px;
+        }
+
+        .spinner.medium {
+            width: 32px;
+            height: 32px;
+            border-width: 3px;
+        }
+
+        .spinner.large {
+            width: 40px;
+            height: 40px;
+            border-width: 4px;
+        }
+
+        .spinner.primary {
+            border-color: #e5e7eb;
+            border-left-color: var(--primary-green);
+        }
+
+        .spinner.secondary {
+            border-color: #e5e7eb;
+            border-left-color: var(--gray-500);
+        }
+
+        .spinner.white {
+            border-color: rgba(255, 255, 255, 0.3);
+            border-left-color: white;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Loading Message */
+        .loading-message {
+            font-size: 16px;
+            color: var(--gray-700);
+            font-weight: 500;
+            margin-top: 8px;
+            opacity: 0.8;
+        }
+
+        .loading-message.white {
+            color: white;
+        }
+
+        /* Cancel Button */
+        .cancel-button {
+            background: transparent;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-700);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .cancel-button:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+        }
+
+        .cancel-button.white {
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+        }
+
+        .cancel-button.white:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Demo Sections */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .demo-item {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .demo-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Scenario Demos */
+        .scenario-demo {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .scenario-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        /* Interactive Demo */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .control-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .control-button.active {
+            background: rgba(255, 255, 255, 0.4);
+            font-weight: 600;
+        }
+
+        /* Original Design Recreation */
+        .original-demo {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 80px 40px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .original-spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #e5e7eb;
+            border-left-color: var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        .original-text {
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">LoadingState - Composant Classe+</h1>
+        
+        <!-- Design Original -->
+        <div class="section">
+            <div class="section-title">Design Original (comme votre image)</div>
+            <div class="original-demo">
+                <div class="original-spinner"></div>
+                <div class="original-text">Connexion en cours...</div>
+            </div>
+        </div>
+
+        <!-- Tailles du Spinner -->
+        <div class="section">
+            <div class="section-title">Tailles Disponibles</div>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-label">Small (20px)</div>
+                    <div class="loading-state center">
+                        <div class="spinner small primary"></div>
+                        <div class="loading-message">Chargement...</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-label">Medium (32px)</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium primary"></div>
+                        <div class="loading-message">Chargement...</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-label">Large (40px)</div>
+                    <div class="loading-state center">
+                        <div class="spinner large primary"></div>
+                        <div class="loading-message">Chargement...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Couleurs -->
+        <div class="section">
+            <div class="section-title">Variantes de Couleur</div>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-label">Primary (Vert Classe+)</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium primary"></div>
+                        <div class="loading-message">Chargement des données...</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-label">Secondary (Gris)</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium secondary"></div>
+                        <div class="loading-message">Traitement en cours...</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item" style="background: linear-gradient(135deg, #374151 0%, #1f2937 100%);">
+                    <div class="demo-label" style="color: rgba(255,255,255,0.8);">White (sur fond sombre)</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium white"></div>
+                        <div class="loading-message white">Connexion sécurisée...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Contextuels -->
+        <div class="section">
+            <div class="section-title">Messages selon le Contexte</div>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-label">Authentification</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium primary"></div>
+                        <div class="loading-message">Connexion en cours...</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-label">Chargement données</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium primary"></div>
+                        <div class="loading-message">Chargement des élèves...</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-label">Sauvegarde</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium primary"></div>
+                        <div class="loading-message">Enregistrement...</div>
+                    </div>
+                </div>
+                
+                <div class="demo-item">
+                    <div class="demo-label">Upload fichier</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium primary"></div>
+                        <div class="loading-message">Envoi du document...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avec bouton d'annulation -->
+        <div class="section">
+            <div class="section-title">Avec Option d'Annulation</div>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-label">Action annulable</div>
+                    <div class="loading-state center">
+                        <div class="spinner medium primary"></div>
+                        <div class="loading-message">Génération du rapport...</div>
+                        <button class="cancel-button">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scénarios d'usage -->
+        <div class="section">
+            <div class="section-title">Scénarios d'Usage dans Classe+</div>
+            
+            <!-- Page Login -->
+            <div class="scenario-demo">
+                <div class="scenario-title">Page de Connexion</div>
+                <div class="loading-state">
+                    <div class="spinner medium white"></div>
+                    <div class="loading-message white">Vérification des identifiants...</div>
+                </div>
+            </div>
+
+            <!-- Overlay Modal -->
+            <div style="position: relative; background: #f1f5f9; border-radius: 16px; height: 300px; overflow: hidden;">
+                <div style="padding: 40px; color: #64748b;">
+                    <h3>Contenu de la page</h3>
+                    <p>Interface de l'application avec données...</p>
+                </div>
+                <div class="loading-state overlay" style="position: absolute;">
+                    <div class="spinner large primary"></div>
+                    <div class="loading-message">Mise à jour des notes...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Démo Interactive -->
+        <div class="scenario-demo">
+            <div class="scenario-title">Démo Interactive</div>
+            <p style="margin-bottom: 20px; opacity: 0.9;">Personnalisez l'apparence du composant</p>
+            
+            <div class="controls">
+                <button class="control-button active" onclick="changeSize('medium')">Medium</button>
+                <button class="control-button" onclick="changeSize('small')">Small</button>
+                <button class="control-button" onclick="changeSize('large')">Large</button>
+            </div>
+            
+            <div class="controls">
+                <button class="control-button active" onclick="changeColor('primary')">Vert Primary</button>
+                <button class="control-button" onclick="changeColor('secondary')">Gris Secondary</button>
+                <button class="control-button" onclick="changeColor('white')">Blanc</button>
+            </div>
+            
+            <div class="controls">
+                <button class="control-button" onclick="toggleCancel()">Toggle Annuler</button>
+                <button class="control-button" onclick="changeMessage()">Changer Message</button>
+            </div>
+            
+            <div class="loading-state" style="margin-top: 30px;">
+                <div id="demo-spinner" class="spinner medium primary"></div>
+                <div id="demo-message" class="loading-message white">Connexion en cours...</div>
+                <button id="demo-cancel" class="cancel-button white" style="display: none;">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSize = 'medium';
+        let currentColor = 'primary';
+        let showCancel = false;
+        let messageIndex = 0;
+        
+        const messages = [
+            'Connexion en cours...',
+            'Chargement des données...',
+            'Traitement en cours...',
+            'Sauvegarde...',
+            'Génération du rapport...'
+        ];
+
+        function changeSize(size) {
+            currentSize = size;
+            updateDemo();
+            updateActiveButton('size', size);
+        }
+
+        function changeColor(color) {
+            currentColor = color;
+            updateDemo();
+            updateActiveButton('color', color);
+        }
+
+        function toggleCancel() {
+            showCancel = !showCancel;
+            updateDemo();
+        }
+
+        function changeMessage() {
+            messageIndex = (messageIndex + 1) % messages.length;
+            updateDemo();
+        }
+
+        function updateDemo() {
+            const spinner = document.getElementById('demo-spinner');
+            const message = document.getElementById('demo-message');
+            const cancel = document.getElementById('demo-cancel');
+            
+            // Update spinner
+            spinner.className = `spinner ${currentSize} ${currentColor}`;
+            
+            // Update message
+            message.textContent = messages[messageIndex];
+            message.className = `loading-message ${currentColor === 'white' ? 'white' : ''}`;
+            
+            // Update cancel button
+            cancel.style.display = showCancel ? 'block' : 'none';
+            cancel.className = `cancel-button ${currentColor === 'white' ? 'white' : ''}`;
+        }
+
+        function updateActiveButton(type, value) {
+            document.querySelectorAll('.control-button').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(value.toLowerCase())) {
+                    btn.classList.add('active');
+                } else if (
+                    (type === 'size' && ['small', 'medium', 'large'].some(s => btn.textContent.toLowerCase().includes(s))) ||
+                    (type === 'color' && ['primary', 'secondary', 'blanc'].some(c => btn.textContent.toLowerCase().includes(c)))
+                ) {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
