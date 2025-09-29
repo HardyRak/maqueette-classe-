@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ErrorState - Maquette</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            color: #047857;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Design Tokens */
+        :root {
+            --error-red: #ef4444;
+            --error-red-dark: #dc2626;
+            --warning-orange: #f59e0b;
+            --warning-orange-dark: #d97706;
+            --info-blue: #3b82f6;
+            --info-blue-dark: #2563eb;
+            --primary-green: #059669;
+            --white: #ffffff;
+            --gray-100: #f9fafb;
+            --gray-500: #64748b;
+            --gray-700: #374151;
+            --gray-900: #0f172a;
+        }
+
+        /* Error State Container */
+        .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 40px;
+            min-height: 400px;
+        }
+
+        .error-state.fullpage {
+            min-height: 100vh;
+            background: var(--gray-100);
+        }
+
+        .error-state.inline {
+            min-height: auto;
+            padding: 40px 20px;
+        }
+
+        /* Error Icon */
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .error-icon.error {
+            background: linear-gradient(135deg, var(--error-red) 0%, var(--error-red-dark) 100%);
+        }
+
+        .error-icon.warning {
+            background: linear-gradient(135deg, var(--warning-orange) 0%, var(--warning-orange-dark) 100%);
+        }
+
+        .error-icon.info {
+            background: linear-gradient(135deg, var(--info-blue) 0%, var(--info-blue-dark) 100%);
+        }
+
+        /* Error Content */
+        .error-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .error-message {
+            color: var(--gray-500);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        /* Error Actions */
+        .error-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .error-button {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .error-button.primary {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #047857 100%);
+            color: white;
+            border: none;
+        }
+
+        .error-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(5, 150, 105, 0.3);
+        }
+
+        .error-button.secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid #e5e7eb;
+        }
+
+        .error-button.secondary:hover {
+            background: var(--gray-100);
+            border-color: #cbd5e1;
+        }
+
+        .error-link {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .error-link:hover {
+            color: #047857;
+            text-decoration: underline;
+        }
+
+        /* Demo Grid */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .demo-card {
+            background: var(--gray-100);
+            border-radius: 16px;
+            padding: 40px;
+            min-height: 400px;
+        }
+
+        /* Original Design */
+        .original-demo {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .original-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.25);
+        }
+
+        .original-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #fbbf24;
+        }
+
+        .original-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 16px;
+        }
+
+        .original-message {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .original-button {
+            background: white;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .original-button:hover {
+            background: #f9fafb;
+            border-color: #cbd5e1;
+        }
+
+        /* Interactive Demo */
+        .interactive-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #047857 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+        }
+
+        .interactive-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .control-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .control-button.active {
+            background: rgba(255, 255, 255, 0.4);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .error-state {
+                padding: 40px 20px;
+            }
+            
+            .error-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .error-title {
+                font-size: 1.3rem;
+            }
+            
+            .error-message {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">ErrorState - Composant Classe+</h1>
+        
+        <!-- Design Original -->
+        <div class="section">
+            <div class="section-title">Design Original (comme votre image)</div>
+            <div class="original-demo">
+                <div class="original-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 20h20L12 2zm0 5l6.9 12H5.1L12 7zm-1 9h2v2h-2v-2zm0-6h2v4h-2v-4z"/>
+                    </svg>
+                </div>
+                <div class="original-title">Accès modifié</div>
+                <div class="original-message">
+                    Vos accès ont été modifiés par l'administration.<br>
+                    Veuillez contacter votre établissement pour plus d'informations.
+                </div>
+                <button class="original-button">Retour à la connexion</button>
+            </div>
+        </div>
+
+        <!-- Types d'Erreurs -->
+        <div class="section">
+            <div class="section-title">Types d'États</div>
+            <div class="demo-grid">
+                <!-- Error Type -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon error">❌</div>
+                        <div class="error-title">Identifiants incorrects</div>
+                        <div class="error-message">
+                            L'adresse email ou le mot de passe est incorrect. Veuillez vérifier vos informations.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button primary">Réessayer</button>
+                            <button class="error-button secondary">Mot de passe oublié ?</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warning Type -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon warning">⚠️</div>
+                        <div class="error-title">Compte en attente</div>
+                        <div class="error-message">
+                            Votre compte est en cours de validation par l'administration. Vous recevrez un email de confirmation.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button primary">Compris</button>
+                            <a href="#" class="error-link">Contacter le support</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Type -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon info">ℹ️</div>
+                        <div class="error-title">Maintenance programmée</div>
+                        <div class="error-message">
+                            Le service sera temporairement indisponible le 15 janvier de 2h à 4h pour maintenance.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button primary">D'accord</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cas d'Usage Classe+ -->
+        <div class="section">
+            <div class="section-title">Cas d'Usage dans Classe+</div>
+            <div class="demo-grid">
+                <!-- Accès modifié -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon warning">⚠️</div>
+                        <div class="error-title">Accès modifié</div>
+                        <div class="error-message">
+                            Vos accès ont été modifiés par l'administration. Veuillez contacter votre établissement.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button secondary">Retour à la connexion</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compte désactivé -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon error">🔒</div>
+                        <div class="error-title">Compte désactivé</div>
+                        <div class="error-message">
+                            Votre compte a été temporairement désactivé. Contactez l'administrateur de votre établissement.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button primary">Contacter l'administrateur</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Erreur réseau -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon error">📡</div>
+                        <div class="error-title">Erreur de connexion</div>
+                        <div class="error-message">
+                            Impossible de se connecter au serveur. Vérifiez votre connexion internet.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button primary">Réessayer</button>
+                            <button class="error-button secondary">Vérifier la connexion</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session expirée -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon warning">⏱️</div>
+                        <div class="error-title">Session expirée</div>
+                        <div class="error-message">
+                            Votre session a expiré pour des raisons de sécurité. Veuillez vous reconnecter.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button primary">Se reconnecter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Permissions insuffisantes -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon warning">🚫</div>
+                        <div class="error-title">Accès refusé</div>
+                        <div class="error-message">
+                            Vous n'avez pas les permissions nécessaires pour accéder à cette ressource.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button secondary">Retour au dashboard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Maintenance -->
+                <div class="demo-card">
+                    <div class="error-state inline">
+                        <div class="error-icon info">🔧</div>
+                        <div class="error-title">Service indisponible</div>
+                        <div class="error-message">
+                            Le service est temporairement en maintenance. Réessayez dans quelques instants.
+                        </div>
+                        <div class="error-actions">
+                            <button class="error-button primary">Actualiser</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Démo Interactive -->
+        <div class="interactive-section">
+            <div class="interactive-title">Démo Interactive</div>
+            
+            <div class="controls">
+                <button class="control-button active" onclick="changeType('error')">Error</button>
+                <button class="control-button" onclick="changeType('warning')">Warning</button>
+                <button class="control-button" onclick="changeType('info')">Info</button>
+            </div>
+            
+            <div class="controls">
+                <button class="control-button" onclick="changeScenario('access')">Accès modifié</button>
+                <button class="control-button" onclick="changeScenario('credentials')">Identifiants</button>
+                <button class="control-button" onclick="changeScenario('network')">Réseau</button>
+                <button class="control-button" onclick="changeScenario('session')">Session</button>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.1); border-radius: 16px; padding: 40px; margin-top: 30px; backdrop-filter: blur(10px);">
+                <div class="error-state inline" style="min-height: auto;">
+                    <div id="demo-icon" class="error-icon error">⚠️</div>
+                    <div id="demo-title" class="error-title" style="color: white;">Accès modifié</div>
+                    <div id="demo-message" class="error-message" style="color: rgba(255,255,255,0.9);">
+                        Vos accès ont été modifiés par l'administration.
+                    </div>
+                    <div class="error-actions">
+                        <button class="error-button secondary">Retour à la connexion</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentType = 'error';
+        
+        const scenarios = {
+            access: {
+                icon: '⚠️',
+                title: 'Accès modifié',
+                message: 'Vos accès ont été modifiés par l\'administration.'
+            },
+            credentials: {
+                icon: '🔒',
+                title: 'Identifiants incorrects',
+                message: 'L\'adresse email ou le mot de passe est incorrect.'
+            },
+            network: {
+                icon: '📡',
+                title: 'Erreur de connexion',
+                message: 'Impossible de se connecter au serveur.'
+            },
+            session: {
+                icon: '⏱️',
+                title: 'Session expirée',
+                message: 'Votre session a expiré pour des raisons de sécurité.'
+            }
+        };
+
+        function changeType(type) {
+            currentType = type;
+            const icon = document.getElementById('demo-icon');
+            icon.className = `error-icon ${type}`;
+            updateActiveButton('type', type);
+        }
+
+        function changeScenario(scenario) {
+            const data = scenarios[scenario];
+            document.getElementById('demo-icon').textContent = data.icon;
+            document.getElementById('demo-title').textContent = data.title;
+            document.getElementById('demo-message').textContent = data.message;
+            updateActiveButton('scenario', scenario);
+        }
+
+        function updateActiveButton(category, value) {
+            document.querySelectorAll('.control-button').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(value)) {
+                    btn.classList.add('active');
+                } else if (
+                    (category === 'type' && ['error', 'warning', 'info'].includes(btn.textContent.toLowerCase())) ||
+                    (category === 'scenario' && Object.keys(scenarios).some(s => btn.textContent.toLowerCase().includes(s)))
+                ) {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
