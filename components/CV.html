@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - RAKOTONARIVO Manoela Hardy</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            padding: 0;
+            color: #333;
+        }
+
+        .cv-container {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 35% 65%;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px 25px;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            border: 4px solid white;
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .title {
+            font-size: 12px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .sidebar-section {
+            margin-bottom: 25px;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .contact-icon {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .contact-text {
+            word-break: break-word;
+        }
+
+        .skill-item {
+            margin-bottom: 12px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+
+        .language-dots {
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .interest-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 10px;
+        }
+
+        .interest-icon {
+            font-size: 16px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            padding: 30px 35px;
+            background: white;
+        }
+
+        .main-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: #1e3c72;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            border-bottom: 3px solid #2a5298;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .experience-item {
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .experience-title {
+            flex: 1;
+        }
+
+        .job-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 3px;
+        }
+
+        .company {
+            font-size: 11px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .date {
+            background: #e7f3ff;
+            color: #2a5298;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .experience-list {
+            list-style: none;
+            margin: 8px 0;
+            padding-left: 0;
+        }
+
+        .experience-list li {
+            padding-left: 15px;
+            margin-bottom: 5px;
+            position: relative;
+            font-size: 10px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .experience-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2a5298;
+            font-weight: bold;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .tech-tag {
+            background: #e7f3ff;
+            color: #2a5298;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 9px;
+            font-weight: 500;
+        }
+
+        .formation-desc {
+            font-size: 10px;
+            color: #666;
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+
+        @media print {
+            body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+            }
+
+            .cv-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body id="contenu">
+    <div class="cv-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="profile-section">
+                <img class="profile-photo" src="badge.png" >
+                <div class="name">RAKOTONARIVO<br>Manoela Hardy</div>
+                <div class="title">Développeur Fullstack JavaScript • QA & DevOps</div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">📬 Contact</div>
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span class="contact-text">hardy.rakoto-pro@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📱</span>
+                    <span class="contact-text">+261 33 71 545 95</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span class="contact-text">Antananarivo, Madagascar</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">💼</span>
+                    <span class="contact-text">linkedin.com/in/hardy-rakotonarivo-a073072b5</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">💻 Compétences</div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px; opacity: 0.9;">Frontend</div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Angular</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>React</span>
+                            <span>50%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px; opacity: 0.9;">Backend</div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>NestJS</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Node.js</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Java</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="font-size: 11px; font-weight: bold; margin-bottom: 8px; opacity: 0.9;">DevOps</div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Docker</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Git</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>GitHub Actions</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">🗣️ Langues</div>
+                <div class="language-item">
+                    <span>Français</span>
+                    <span class="language-dots">●●●●○</span>
+                </div>
+                <div class="language-item">
+                    <span>Anglais</span>
+                    <span class="language-dots">●●○○○</span>
+                </div>
+                <div class="language-item">
+                    <span>Malagasy</span>
+                    <span class="language-dots">●●●●●</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">🏆 Intérêts</div>
+                <div class="interest-item">
+                    <span class="interest-icon">💻</span>
+                    <span>Open Source</span>
+                </div>
+                <div class="interest-item">
+                    <span class="interest-icon">📚</span>
+                    <span>Veille Tech</span>
+                </div>
+                <div class="interest-item">
+                    <span class="interest-icon">🎮</span>
+                    <span>Gaming</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="main-section">
+                <div class="section-title">💼 Expérience Professionnelle</div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="experience-title">
+                            <div class="job-title">Développeur Fullstack JavaScript</div>
+                            <div class="company">ORCHIS MADAGASCAR • Antananarivo</div>
+                        </div>
+                        <div class="date">2024 - Présent</div>
+                    </div>
+                    <ul class="experience-list">
+                        <li>Participation au développement d'une application en utilisant la méthode de conception DDD (Domain-Driven Design)</li>
+                        <li>Implémentation de l'architecture CQRS (Command Query Responsibility Segregation)</li>
+                        <li>Utilisation de Workspace NX pour la gestion du monorepo et l'organisation du code</li>
+                        <li>Développement de fonctionnalités front-end et back-end avec Angular et NestJS</li>
+                        <li>Collaboration en méthodologie Agile avec l'équipe de développement</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Angular</span>
+                        <span class="tech-tag">NestJS</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">NX</span>
+                        <span class="tech-tag">DDD</span>
+                        <span class="tech-tag">CQRS</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="experience-title">
+                            <div class="job-title">Stage Développeur</div>
+                            <div class="company">Projets Académiques • IT University</div>
+                        </div>
+                        <div class="date">2021 - 2024</div>
+                    </div>
+                    <ul class="experience-list">
+                        <li>Développement de projets web/mobile avec diverses technologies</li>
+                        <li>Apprentissage et application des méthodologies de développement Agile</li>
+                        <li>Travail en équipe sur des projets universitaires</li>
+                        <li>Tests unitaires et assurance qualité</li>
+                    </ul>
+                    <div class="tech-tags">
+                        <span class="tech-tag">JavaScript/TypeScript</span>
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Angular</span>
+                        <span class="tech-tag">Ionic</span>
+                        <span class="tech-tag">Spring Boot</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-section">
+                <div class="section-title">🎓 Formation</div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="experience-title">
+                            <div class="job-title">Licence 3 en Développement Logiciel</div>
+                            <div class="company">IT University Andoharanofotsy • Antananarivo</div>
+                        </div>
+                        <div class="date">2021 - 2024</div>
+                    </div>
+                    <div class="formation-desc">
+                        Spécialisation en développement logiciel, architecture système et méthodologies agiles. Projets académiques variés en équipe.
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-section">
+                <div class="section-title">⚙️ Méthodologie de Travail</div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; border-left: 3px solid #2a5298;">
+                        <div style="font-size: 11px; font-weight: bold; color: #1e3c72; margin-bottom: 5px;">🔄 Méthodologie Agile</div>
+                        <div style="font-size: 9px; color: #666; line-height: 1.4;">Expérience en Scrum avec sprints itératifs, daily standups et retrospectives.</div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; border-left: 3px solid #2a5298;">
+                        <div style="font-size: 11px; font-weight: bold; color: #1e3c72; margin-bottom: 5px;">✅ Tests & Qualité</div>
+                        <div style="font-size: 9px; color: #666; line-height: 1.4;">Pratique du TDD avec Jest, JUnit et Selenium. Couverture de code minimum de 80%.</div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; border-left: 3px solid #2a5298;">
+                        <div style="font-size: 11px; font-weight: bold; color: #1e3c72; margin-bottom: 5px;">🚀 CI/CD & DevOps</div>
+                        <div style="font-size: 9px; color: #666; line-height: 1.4;">Pipelines automatisés pour le build, les tests et le déploiement. Conteneurisation avec Docker.</div>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; border-left: 3px solid #2a5298;">
+                        <div style="font-size: 11px; font-weight: bold; color: #1e3c72; margin-bottom: 5px;">💡 Approche Personnelle</div>
+                        <div style="font-size: 9px; color: #666; line-height: 1.4;">Code propre et maintenable, documentation complète, communication proactive.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
